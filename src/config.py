@@ -11,3 +11,5 @@ DB_PORT = os.environ.get('DB_PORT')
 DB_NAME = os.environ.get('DB_NAME')
 
 SECRET_AUTH = os.environ.get('SECRET_AUTH')
+
+REDIS_HOST = os.environ.get('REDIS_HOST')
