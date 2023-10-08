@@ -19,11 +19,11 @@ redis = redis.asyncio.from_url("redis://localhost:6379", decode_responses=True)
 
 
 def get_redis_strategy() -> RedisStrategy:
-    return RedisStrategy(redis, lifetime_seconds=3600)
+    return RedisStrategy(redis, lifetime_seconds=3600000)
 
 
 # create cookie
-cookie_transport = CookieTransport(cookie_max_age=3600)
+cookie_transport = CookieTransport(cookie_max_age=3600000)
 
 SECRET = SECRET_AUTH
 

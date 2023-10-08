@@ -1,16 +1,11 @@
+from datetime import datetime
 from enum import Enum
 from fastapi import Depends
-from sqlalchemy import Column, Integer, String
-
+from sqlalchemy import TIMESTAMP, Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy.orm import Session
 
 from src.auth.models import User
 from src.db import Base
-
-
-class IsComplete(str, Enum):
-    complete = 'Complete'
-    in_progress = 'In progress'
-    not_complete = 'Not complete'
 
 
 class Todo(Base):
@@ -18,5 +13,7 @@ class Todo(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
-    is_complete = Depends(IsComplete)
-    user_id = Depends(User)
+    is_complete = Column(Boolean)
+    user_id = Column('user_id', ForeignKey(User.id), nullable=False)
+    created_at = Column('created_at', TIMESTAMP, default=datetime.utcnow)
+    # data_complete = Column(TIMESTAMP, default=datetime.utcnow)

@@ -14,7 +14,7 @@ from src.config import DB_HOST, DB_PASS, DB_USER, DB_PORT, DB_NAME
 
 
 from src.auth.models import User
-from src.todo.models import Todo, IsComplete
+from src.todo.models import Todo  # , IsComplete
 
 
 # добавление папки где alembic будет искать файлы для миграции
