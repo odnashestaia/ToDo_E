@@ -9,24 +9,18 @@ from src.auth.models import User
 from src.db import get_async_session
 
 from .models import Todo
-from .schemas import TodoSchema
-# from src.main import templates
 
-router_todo = APIRouter(prefix='/todo', tags=['todo'])
+router_todo = APIRouter(prefix='/todo_docs', tags=['todo'])
 
 
 current_user = fastapi_users.current_user()
 
 
-def params():
-    return {'title': title, 'is_complete': is_complete}
-
-
 @router_todo.get("/list")
-async def protected_route(user: User = Depends(current_user), session: Session = Depends(get_async_session)):
+async def list_todo(user: User = Depends(current_user), session: Session = Depends(get_async_session)):
     stmt = select(Todo).order_by(Todo.user_id == user.id)
     result = await session.execute(stmt)
-    return {'result': result.scalars().all()}
+    return result.scalars().all()
 
 
 @router_todo.post('/add')

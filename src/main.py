@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 from fastapi_redis_cache import FastApiRedisCache, cache
@@ -10,20 +9,19 @@ from src.config import REDIS_HOST
 
 from src.todo.router import router_todo
 from src.auth.router import route as router_auth
+from src.pages.router import route as router_pages
 
 app = FastAPI()
 
 # передаем путь к файлам статики
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# передаем к файлам шаблона
-templates = Jinja2Templates(directory='templates')
-
 
 """ импорт модулей """
 
 app.include_router(router_todo)
 app.include_router(router_auth)
+app.include_router(router_pages)
 
 
 @app.on_event("startup")
